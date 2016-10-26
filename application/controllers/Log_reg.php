@@ -1,36 +1,29 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class LogReg extends CI_Controller {
-	
-	public function login()
+class Log_reg extends My_controller {
+
+    public function login()
 	{
 		$this->load->helper('url');
+        $this->load->helper('form');
         $this->load->view('LogRegView/header');
-		$this->load->view('LogRegView/login.html');
+		$this->load->view('LogRegView/login.php');
 	}
 
 	public function register()
-	{
+    {
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $data['title'] = 'Create a news item';
-
         if ($this->form_validation->run('signup') === FALSE)
         {
             $this->load->view('LogRegView/header');
-            $this->load->view('LogRegView/register', $data);
+            $this->load->view('LogRegView/register');
         }else {
-            echo $this->input->post('login');
-            echo $this->input->post('password');
+           $this->load->model('User_model');
+           $this->User_model->register_user();
         }
-
 	}
-
-    public function added()
-    {
-        echo $this->input->post();
-    }
 }
