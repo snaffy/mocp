@@ -23,14 +23,40 @@ class User_model extends CI_Model
         $login =  $this->input->post('login');
         $pass = $this->input->post('password');
         $usr = new Entity\User;
-        $usr->setPassword("$login");
-        $usr->setLogin("$pass");
+        $hashed_password = password_hash($pass,PASSWORD_BCRYPT);
+        $usr->setPassword($hashed_password);
+        $usr->setLogin($login);
         $this->em->persist($usr);
         $this->em->flush();
     }
-    
-    public function test()
+
+    public function check_user_existence()
     {
-        echo "test";
+        $login =  $this->input->post('login');
+        $pass = $this->input->post('password');
+        $qbResult = $this->em->createQueryBuilder()
+            ->select('u')
+            ->from(\Entity\User::class,'u')
+            ->where('u.login =:l')
+            ->setParameter('l',$login)
+            ->getQuery()->getOneOrNullResult();
+          //  var_dump($qbResult);
+        if ($qbResult != null)
+        {
+            $passHashed = $qbResult->getPassword();
+           if(password_verify($pass,$passHashed)) 
+               return $qbResult; 
+        }
+            return null ; 
+        
+        
+    }
+    
+    public function phash()
+    {
+//        $pass = $this->input->post('password');
+//       // $hashed_password = crypt($pass);
+//        $hp = 
+//        var_dump($hp);
     }
 }

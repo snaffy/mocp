@@ -8,7 +8,22 @@ class Log_reg extends My_controller {
 		$this->load->helper('url');
         $this->load->helper('form');
         $this->load->view('LogRegView/header');
-		$this->load->view('LogRegView/login.php');
+        $this->load->view('LogRegView/login.php');
+        $formSubmit = $this->input->post('submit');
+        if($formSubmit == 'loginSubmit')
+        {
+            $this->load->model('User_model');
+            $tmp = $this->User_model->check_user_existence();
+            if ($tmp != null)
+            {
+                $this->load->library('session');
+                $this->session->set_userdata('userID', $tmp->getIdUser());
+            }
+        }else
+        {
+             
+        }
+
 	}
 
 	public function register()
@@ -26,4 +41,6 @@ class Log_reg extends My_controller {
            $this->User_model->register_user();
         }
 	}
+    
+    
 }
