@@ -57,3 +57,6 @@ $route['translate_uri_dashes'] = FALSE;
 // LOGIN REGISTER
 $route['login']='Log_reg/login';
 $route['register'] ='Log_reg/register';
+
+//Home
+$route['home'] = 'User_home/home';

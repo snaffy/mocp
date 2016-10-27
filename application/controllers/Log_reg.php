@@ -18,12 +18,13 @@ class Log_reg extends My_controller {
             {
                 $this->load->library('session');
                 $this->session->set_userdata('userID', $tmp->getIdUser());
+
+                redirect('/home');
             }
         }else
         {
-             
-        }
 
+        }
 	}
 
 	public function register()
