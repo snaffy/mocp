@@ -18,7 +18,7 @@ class Log_reg extends My_controller {
             {
                 $this->load->library('session');
                 $this->session->set_userdata('userID', $tmp->getIdUser());
-
+                //var_dump( $this->session->get_userdata()['userID']);
                 redirect('/home');
             }
         }else
