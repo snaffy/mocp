@@ -12,8 +12,13 @@ class MY_Form_validation extends CI_Form_validation
         parent::__construct($config);
     }
 
-    function noNumeric($str)
+    function checkPassword($hasshedPasswrd)
     {
-
+        
+        var_dump($hasshedPasswrd);
+//        var_dump($password);
+//        return password_verify($password,$hasshedPasswrd);
+        $this->set_message('checkPassword',"MSG");
+        return false;
     }
-}
+} 

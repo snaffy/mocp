@@ -54,6 +54,25 @@ $config = array(
             'label' => 'Ulica',
             'rules' => 'max_length[45]',
         )
+    ),
+    'passwordUpdate'=> array(
+        array(
+            'field' => 'password',
+            'label' => 'Hasło',
+            'rules' => 'trim|required|min_length[4]'
+        ),
+        array(
+            'field' => 'passwordconf',
+            'label' => 'Powtórz Hasło',
+            'rules' => 'trim|required|matches[password]'
+        ),
+    ),
+    'changeLogin' =>array(
+        array(
+            'field' => 'login',
+            'label' => 'Login',
+            'rules' => 'required|min_length[4]'
+        )
     )
 );
 

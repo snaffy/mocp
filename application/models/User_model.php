@@ -48,37 +48,44 @@ class User_model extends CI_Model
             $sql = "UPDATE Entity\User u SET " . $bdI . " WHERE u.idUser = $idUser";
             $this->em->createQuery($sql)->execute();
         }
-        
-//
-//        $question_marks = array();
-//        foreach ($datafields as $d) {
-//            $question_marks[] = $d . "=:" . $d;
-//        }
-//        $question_marks;
-//        $bind_data = implode(",", $question_marks);
-//        $tablename = \Entity\User::class;
-
-//        $sql = "UPDATE Entity/User SET name = :name WHERE id_user = :id ";
-//        $stmt = $this->em->getConnection()->prepare($sql);
-//        for($i=0;$i< count($datafields);$i++)
-//        {
-//            $stmt->bindParam(":" . $datafields[$i], $insert_values[$i]);
-//
-//        }
-//        $name = 'noewa1';
-//        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-//        $id = '1' ;
-//        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
-//        $stmt->execute();
-//        var_dump($sql);
-//        var_dump($stmt);
-
-        //  $sql ="UPDATE Entity\User u SET u.name = 'testzmiany' WHERE u.idUser = 1";
-
-
     }
-    
-    
+    public function update_user_password($idUser)
+    {
+        $pass = $this->input->post('password');
+        $hashed_password = password_hash($pass, PASSWORD_BCRYPT);
+        $q =$this->em->createQueryBuilder()
+            ->update(\Entity\User::class,'u')
+            ->set('u.password','?1')
+            ->where('u.idUser = :id')
+            ->setParameter(1,$hashed_password)
+            ->setParameter('id',$idUser)
+            ->getQuery();
+        $q->execute();
+    }
+
+    public function update_user_login($idUser)
+    {
+        $newLogin = $this->input->post('login');
+        $q =$this->em->createQueryBuilder()
+            ->select('u')
+            ->from(\Entity\User::class,'u')
+            ->where('u.login = :login')
+            ->setParameter('login',$newLogin)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        if($q == null)
+        {
+            $q =$this->em->createQueryBuilder()
+                ->update(\Entity\User::class,'u')
+                ->set('u.login',':login')
+                ->where('u.idUser = :id')
+                ->setParameter('login',$newLogin)
+                ->setParameter('id',$idUser)
+                ->getQuery();
+            $q->execute();
+        }
+    }
     public function check_user_existence()
     {
         $login = $this->input->post('login');
