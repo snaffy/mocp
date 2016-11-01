@@ -23,8 +23,22 @@ class User_home extends My_controller
 
     public function home()
     {
+        $this->load->model('User_project');
+        $userProject['userProject'] =  $this->User_project->get_user_projecT($this->userID);
+
         $this->load->helper('url');
+        $this->load->helper('form');
         $this->load->view('HomeView/userHeader.php');
+        $this->load->view('HomeView/userCreateProject.php',$userProject);
+        if ($this->input->post('createProject') != null)
+        {
+            $this->load->model('User_project');
+            $projectID =  $this->User_project->create_project();
+            $ucID = $this->em->find(\Entity\User::class,$this->userID);
+            $rcID = $this->em->find(\Entity\UserRole::class,1);
+            $this->User_project->add_user_to_project($ucID,$projectID,$rcID);
+        }
+
     }
 
     public function profile()
