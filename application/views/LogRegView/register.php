@@ -1,13 +1,16 @@
 <body>
-<h2><?php echo $title; ?></h2>
 
-
-<?php echo form_open('register'); ?>
+<nav class="navbar navbar-dark bg-primary">
+    <h1>MOCP</h1>
+</nav>
 
 <div class="row">
-    <div class="container">
+    <div class="container col-md-offset-4">
+        <div>
+            <h2>Stwórz konto</h2>
+        </div>
         <div class="col-md-4">
-
+            <?php echo form_open('register'); ?>
             <div class="form-group">
                 <?php echo form_error('login');
                 echo form_input('login',set_value('login'), $attributes=array(
@@ -26,11 +29,10 @@
             <div class="form-group">
                <?php echo form_submit('submit','Submit',array('class'=>"btn-primary btn-block","id"=>"submit"));?>
             </div>
-
+            <?php echo form_close()?>
+            <p>Masz już konto? <a href="<?php echo base_url(); ?>login">Login</a></p>
         </div>
-
     </div>
 </div>
-<?php echo form_close()?>
 
 </body>

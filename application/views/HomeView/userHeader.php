@@ -7,14 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/styles.css'); ?>" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="<?php echo base_url('assets/js/bootstrap.js'); ?>"></script>
-
-    <link rel="stylesheet" href="<?php echo base_url('node_modules/bootstrap_table/src/bootstrap-table.css'); ?>">
-    <script src="<?php echo base_url('node_modules/bootstrap_table/src/bootstrap-table.js'); ?>"></script>
-    <script src="<?php echo base_url('node_modules/bootstrap_table/src/locale/bootstrap-table-pl-PL.js'); ?>"></script>
 
 
+    <script src="<?php echo base_url('assets/node_modules/jquery/dist/jquery.min.js'); ?>"></script>
+    <link rel="stylesheet" href="<?php echo base_url('assets/node_modules/bootstrap-table/src/bootstrap-table.css'); ?>">
+    <script src="<?php echo base_url('assets/node_modules/bootstrap-table/src/bootstrap-table.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/node_modules/bootstrap-table/src/locale/bootstrap-table-pl-PL.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
+
+
+   
 </head>
 <body>
 <!-- Header -->

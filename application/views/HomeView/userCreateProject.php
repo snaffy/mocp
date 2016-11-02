@@ -1,4 +1,35 @@
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+<div id="custom-toolbar">
+    <div class="form-group">
+        <?php echo form_open('project', array('id' => 'formSubmit')) ?>
+        <?php echo form_button('createProject', 'Utwórz projekt', array('class' => 'btn btn-primary btn-lg', 'id' => 'createProject', 'onclick' => "startModal()")); ?>
+        <?php echo form_button('getToEdit', 'Edytuj', array('class' => 'btn btn-primary', 'id' => 'getToEdit', 'onclick' => "getToEdit()")); ?>
+        <?php echo form_button('deleteProject', 'Usuń projekt', array('class' => 'btn btn-danger', 'id' => 'deleteProject')); ?>
+        <?php echo form_input('setProject', 'Wybierz', array('class' => 'btn btn-success', 'id' => 'setProject', 'onclick' => "getProject()",'type'=>'button')); ?>
+        <?php echo form_close(); ?>
+
+    </div>
+</div>
+
+
+<div class="container">
+    <h2> Moje projekty</h2>
+    <table id="projectTable" data-toggle="table" data-toolbar="#custom-toolbar"
+           data-search="true" data-pagination="true"
+           data-height="600" data-show-refresh="true"
+           data-click-to-select="true"
+           data-single-select="true">
+        <thead>
+        <tr>
+            <th data-checkbox="true" data-field="idProject" data-visible="false"></th>
+            <th data-checkbox="true">#</th>
+            <th data-field="name">Nazwa</th>
+            <th data-field="description">Opis</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -21,8 +52,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <?php echo form_submit('createProject','Utwórz',array('class'=>'btn btn-primary')) ?>
-                <?php echo form_submit('createProject','Anuluj',array('class'=>'btn btn-default', 'data-dismiss'=>'modal')) ?>
+                <?php echo form_submit('createProject', 'Utwórz', array('class' => 'btn btn-primary')) ?>
+                <?php echo form_submit('createProject', 'Anuluj', array('class' => 'btn btn-default', 'data-dismiss' => 'modal')) ?>
             </div>
             <?php echo form_close(); ?>
 
@@ -30,59 +61,43 @@
     </div>
 </div>
 
-<div id="custom-toolbar">
-<!--        <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal">-->
-<!--            Utwórz projekt-->
-<!--        </button>-->
-    <?php echo form_open('project') ?>
-    <?php echo form_submit('editProject','Edytuj',array('class'=>'btn btn-primary', 'id'=>'editProject','onclick'=>"getToEdit()")); ?>
-    <?php echo form_close(); ?>
-<!--        <button class="btn btn-primary" id="getToEdit">Edytuj</button>-->
-<!--       <button type="submit" class="btn btn-danger"  value="">Usuń</button>-->
-<!--    <button type="submit" class="btn btn-success">Wybierz</button>-->
+<div class="modal fade" id="alertDialog" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Operacja niewykonywalna</h4>
+            </div>
+            <div class="modal-body">
+                <p>Nie wybrałeś projektu</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
-<div id="custom-bottom">
-
-</div>
-<div class="container">
-<h2> Moje projekty</h2>
-<table id="projectTable" data-toggle="table" data-toolbar="#custom-toolbar"
-       data-search="true" data-pagination="true"
-       data-height="600" data-show-refresh="true"
-       data-click-to-select="true"
-       data-single-select="true" >
-    <thead>
-    <tr>
-        <th data-checkbox="true">#</th>
-        <th  data-field="name">Nazwa Projektu</th>
-        <th>Opis Projektu</th>
-        <th>test</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php
-    $i = 0 ;
-    foreach  ($userProjectData as $value)
-    {
-        $i++;
-        echo '
-        <tr>
-            <td>'.$i.'</td>
-            <td>'.$value['name'].'</td>
-            <td>'.$value['description'].'</td>
-            <td>'.$value['idProject'].'</td>
-        </tr>';
-    }?>
-    </tbody>
-</table>
 </div>
 
 <script>
-    function getToEdit()
-    {
-        var value =  JSON.stringify( $('#projectTable').bootstrapTable('getSelections'));
-        document.getElementById("editProject").value = value;
+    function getProject() {
+        var value =  JSON.stringify($('#projectTable').bootstrapTable('getSelections'));
+        if (value != '[]')
+        {
+            document.getElementById("setProject").value = value;
+            document.getElementById("formSubmit").submit();
+        }else
+        {
+            $('#alertDialog').modal()
+
+        }
     }
+    function startModal() {
+        $('#createProjectModal').modal()
+    }
+    $('#projectTable').bootstrapTable({
+        data: <?php echo $userProjectData ?>
+    });
 </script>
 
 

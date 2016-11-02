@@ -24,12 +24,14 @@ class User_home extends My_controller
     public function home()
     {
         $this->load->model('User_project');
-        $userProject['userProject'] =  $this->User_project->get_user_projecT($this->userID);
-
+        $some_data=  json_encode($this->User_project->get_user_projecT($this->userID));
+        $data = array (
+            'userProjectData' => $some_data
+        );
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->view('HomeView/userHeader.php');
-        $this->load->view('HomeView/userCreateProject.php',$userProject);
+        $this->load->view('HomeView/userCreateProject.php',$data);
         if ($this->input->post('createProject') != null)
         {
             $this->load->model('User_project');
