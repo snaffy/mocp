@@ -68,8 +68,8 @@ class Doctrine {
         $config->setProxyNamespace('Proxies');
 
         // Set up logger
-        $logger = new EchoSQLLogger;
-        $config->setSQLLogger($logger);
+//        $logger = new EchoSQLLogger;
+//        $config->setSQLLogger($logger);
 
         //$config = Setup::createAnnotationMetadataConfiguration($metadata_paths, $dev_mode, $proxies_dir);
         $this->em = EntityManager::create($connection_options, $config);

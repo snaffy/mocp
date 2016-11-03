@@ -1,6 +1,4 @@
-/**
- * Created by PhpStorm.
- * User: azygm
- * Date: 02.11.2016
- * Time: 00:49
- */
+<div id="gantt_here" style='width:1000px; height:400px;'></div>
+<script type="text/javascript">
+    gantt.init("gantt_here");
+</script>

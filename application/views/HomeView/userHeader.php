@@ -14,9 +14,6 @@
     <script src="<?php echo base_url('assets/node_modules/bootstrap-table/src/bootstrap-table.js'); ?>"></script>
     <script src="<?php echo base_url('assets/node_modules/bootstrap-table/src/locale/bootstrap-table-pl-PL.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
-
-
-   
 </head>
 <body>
 <!-- Header -->
@@ -30,7 +27,6 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-
                 <li class="dropdown">
                     <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
                         <i class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>

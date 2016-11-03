@@ -32,15 +32,25 @@ class User_home extends My_controller
         $this->load->helper('form');
         $this->load->view('HomeView/userHeader.php');
         $this->load->view('HomeView/userCreateProject.php',$data);
-        if ($this->input->post('createProject') != null)
+        $this->load->view('HomeView/userFooter.php');
+        var_dump($this->input->post());
+        if($this->input->post('createEditSubmit') == 'Utwórz')
         {
-            $this->load->model('User_project');
-            $projectID =  $this->User_project->create_project();
             $ucID = $this->em->find(\Entity\User::class,$this->userID);
             $rcID = $this->em->find(\Entity\UserRole::class,1);
-            $this->User_project->add_user_to_project($ucID,$projectID,$rcID);
-        }
+             $this->User_project->create_project($ucID,$rcID);
 
+          //  $this->User_project->add_user_to_project($ucID,$projectID,$rcID);
+            redirect('home','refresh');
+        }elseif ($this->input->post('createEditSubmit') == 'Edytuj')
+        {
+            $this->User_project->edit_project();
+            redirect('home','refresh');
+        }elseif ($this->input->post('selectedProjectID') != null)
+        {
+//            $this->User_project->remove_project();
+//            redirect('home','refresh');
+        }
     }
 
     public function profile()

@@ -64,4 +64,5 @@ $route['profile'] ='User_home/profile';
 $route['logout'] ='User_home/logout';
 $route['test'] ='User_home/test';
 //Projects
-$route['project'] ='User_projects/project';
+$route['project'] ='User_projects/project_overview';
+$route['project/task'] = 'User_projects/task';
