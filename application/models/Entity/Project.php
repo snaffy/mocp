@@ -1,13 +1,10 @@
 <?php
-
 namespace Entity;
-
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Project
  *
- * @ORM\Table(name="project", indexes={@ORM\Index(name="fk_project_city1_idx", columns={"city_idcity"})})
+ * @ORM\Table(name="project")
  * @ORM\Entity
  */
 class Project
@@ -17,7 +14,7 @@ class Project
      *
      * @ORM\Column(name="id_project", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idProject;
 
@@ -38,36 +35,74 @@ class Project
     /**
      * @var string
      *
-     * @ORM\Column(name="street", type="string", length=45, nullable=true)
+     * @ORM\Column(name="adress", type="string", length=255, nullable=true)
      */
-    private $street;
+    private $adress;
 
     /**
-     * @var \City
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="City")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="city_idcity", referencedColumnName="id_city")
-     * })
+     * @return int
      */
-    private $citycity;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="projectproject")
-     */
-    private $useruser;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
+    public function getIdProject()
     {
-        $this->useruser = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->idProject;
     }
+
+    /**
+     * @param int $idProject
+     */
+    public function setIdProject($idProject)
+    {
+        $this->idProject = $idProject;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdress()
+    {
+        return $this->adress;
+    }
+
+    /**
+     * @param string $adress
+     */
+    public function setAdress($adress)
+    {
+        $this->adress = $adress;
+    }
+    
 
 }
 

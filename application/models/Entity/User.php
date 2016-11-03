@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * User
  *
- * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="login_UNIQUE", columns={"login"})}, indexes={@ORM\Index(name="fk_user_user_role1_idx", columns={"user_role_iduser_role"}), @ORM\Index(name="fk_user_city1_idx", columns={"city_idcity"})})
+ * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="login_UNIQUE", columns={"login"})})
  * @ORM\Entity
  */
 class User
@@ -41,13 +41,6 @@ class User
      * @ORM\Column(name="email", type="string", length=45, nullable=true)
      */
     private $email;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="user_details_iduser_details", type="integer", nullable=true)
-     */
-    private $userDetailsIduserDetails;
 
     /**
      * @var string
@@ -120,49 +113,6 @@ class User
     private $expiresAt;
 
     /**
-     * @var \City
-     *
-     * @ORM\ManyToOne(targetEntity="City")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="city_idcity", referencedColumnName="id_city")
-     * })
-     */
-    private $citycity;
-
-    /**
-     * @var \UserRole
-     *
-     * @ORM\ManyToOne(targetEntity="UserRole")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_role_iduser_role", referencedColumnName="id_user_role")
-     * })
-     */
-    private $userRoleuserRole;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Project", inversedBy="useruser")
-     * @ORM\JoinTable(name="user_has_project",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="user_iduser", referencedColumnName="id_user")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="Project_idProject", referencedColumnName="id_project")
-     *   }
-     * )
-     */
-    private $projectproject;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->projectproject = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * @return int
      */
     public function getIdUser()
@@ -224,22 +174,6 @@ class User
     public function setEmail($email)
     {
         $this->email = $email;
-    }
-
-    /**
-     * @return int
-     */
-    public function getUserDetailsIduserDetails()
-    {
-        return $this->userDetailsIduserDetails;
-    }
-
-    /**
-     * @param int $userDetailsIduserDetails
-     */
-    public function setUserDetailsIduserDetails($userDetailsIduserDetails)
-    {
-        $this->userDetailsIduserDetails = $userDetailsIduserDetails;
     }
 
     /**
@@ -402,55 +336,6 @@ class User
         $this->expiresAt = $expiresAt;
     }
 
-    /**
-     * @return \City
-     */
-    public function getCitycity()
-    {
-        return $this->citycity;
-    }
-
-    /**
-     * @param \City $citycity
-     */
-    public function setCitycity($citycity)
-    {
-        $this->citycity = $citycity;
-    }
-
-    /**
-     * @return \UserRole
-     */
-    public function getUserRoleuserRole()
-    {
-        return $this->userRoleuserRole;
-    }
-
-    /**
-     * @param \UserRole $userRoleuserRole
-     */
-    public function setUserRoleuserRole($userRoleuserRole)
-    {
-        $this->userRoleuserRole = $userRoleuserRole;
-    }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProjectproject()
-    {
-        return $this->projectproject;
-    }
-
-    /**
-     * @param \Doctrine\Common\Collections\Collection $projectproject
-     */
-    public function setProjectproject($projectproject)
-    {
-        $this->projectproject = $projectproject;
-    }
     
-    
-
 }
 

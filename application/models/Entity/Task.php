@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Task
  *
- * @ORM\Table(name="task", indexes={@ORM\Index(name="fk_task_Project1_idx", columns={"Project_idProject"}), @ORM\Index(name="fk_description_user1_idx", columns={"user_iduser"})})
+ * @ORM\Table(name="task", indexes={@ORM\Index(name="fk_task_Project1_idx", columns={"Project_idProject"})})
  * @ORM\Entity
  */
 class Task
@@ -62,16 +62,6 @@ class Task
      * @ORM\Column(name="description", type="text", length=16777215, nullable=true)
      */
     private $description;
-
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_iduser", referencedColumnName="id_user")
-     * })
-     */
-    private $useruser;
 
     /**
      * @var \Project
