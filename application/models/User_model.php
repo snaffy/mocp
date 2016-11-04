@@ -9,7 +9,7 @@
 class User_model extends CI_Model
 {
     protected $em;
-
+// TODO przeniesc dane pobierane bezposrednio z widoku->model do widok->kont->model 
     public function __construct()
     {
         $this->load->library('doctrine');

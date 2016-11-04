@@ -101,4 +101,41 @@ class User_project  extends CI_Model
 
        return $q ;
     }
+
+    //*********************** TASK **************************/
+
+    public function add_task($task,$links)
+    {
+        if ($task != null)
+        {
+            $newTask = new \Entity\GanttTasks();
+            foreach ($task as $instask)
+            {
+                var_dump($instask->{'id'});
+                $newTask->setId($instask->{'id'});
+                $newTask->setStartDate(DateTime::createFromFormat('Y-m-d',$instask->{'start_date'}));
+                $newTask->setText($instask->{'text'});
+                $newTask->setDuration($instask->{'duration'});
+                $newTask->setEndDate(DateTime::createFromFormat('Y-m-d',$instask->{'end_date'}));
+                $newTask->setParent($instask->{'parent'});
+
+                $this->em->persist($newTask);
+                $this->em->flush();
+            }
+        }
+        if ($links != null)
+        {
+            $newLinks = new \Entity\GanttLinks();
+            foreach ($links as $inslinks)
+            {
+                $newLinks->setId($inslinks->{'id'});
+                $newLinks->setSource($inslinks->{'source'});
+                $newLinks->setTarget($inslinks->{'target'});
+                $newLinks->setType($inslinks->{'type'});
+//                $this->em->persist($newLinks);
+//                $this->em->flush();
+            }
+
+        }
+    }
 }

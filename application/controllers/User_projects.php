@@ -28,12 +28,23 @@ class User_projects extends My_controller
     public function task()
     {
         $this->load->helper('url');
-        echo "task";
-        var_dump($this->input->post());
+        $this->load->helper('form');
         $this->load->view('head.php');
         $this->load->view('ProjectsView/navigation.php');
         $this->load->view('ProjectsView/ganttChart.php');
         $this->load->view('footer.php');
+        var_dump($this->input->post());
+        $newTask = $this->input->post('addTaskInput');
+        $newTaskDecode = json_decode($newTask,false,512,JSON_BIGINT_AS_STRING);
+        $task = $newTaskDecode->{'data'};
+        $links = $newTaskDecode->{'links'};
+        var_dump($task);
+        var_dump($links);
+        $this->load->model('User_project');
+        $this->User_project->add_task($task,$links);
+
+//        $this->load->helper('url');
+//        $this->load->view('ProjectsView/gantttest.php');
     }
     
     
