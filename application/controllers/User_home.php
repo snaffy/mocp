@@ -33,7 +33,7 @@ class User_home extends My_controller
         $this->load->view('HomeView/userHeader.php');
         $this->load->view('HomeView/userCreateProject.php',$data);
         $this->load->view('HomeView/userFooter.php');
-        var_dump($this->input->post());
+        
         if($this->input->post('createEditSubmit') == 'Utwórz')
         {
             $ucID = $this->em->find(\Entity\User::class,$this->userID);

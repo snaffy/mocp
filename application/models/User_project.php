@@ -113,12 +113,14 @@ class User_project  extends CI_Model
             {
                 var_dump($instask->{'id'});
                 $newTask->setId($instask->{'id'});
-                $newTask->setStartDate(DateTime::createFromFormat('Y-m-d',$instask->{'start_date'}));
+                $sd = date_create($instask->{'start_date'});
+                $ed = date_create($instask->{'end_date'});
+                $newTask->setStartDate($sd);
                 $newTask->setText($instask->{'text'});
                 $newTask->setDuration($instask->{'duration'});
-                $newTask->setEndDate(DateTime::createFromFormat('Y-m-d',$instask->{'end_date'}));
+                $newTask->setEndDate($ed);
                 $newTask->setParent($instask->{'parent'});
-
+                $newTask->setProgress($instask->{'progress'});
                 $this->em->persist($newTask);
                 $this->em->flush();
             }
@@ -132,10 +134,46 @@ class User_project  extends CI_Model
                 $newLinks->setSource($inslinks->{'source'});
                 $newLinks->setTarget($inslinks->{'target'});
                 $newLinks->setType($inslinks->{'type'});
-//                $this->em->persist($newLinks);
-//                $this->em->flush();
+                $this->em->persist($newLinks);
+                $this->em->flush();
             }
-
         }
+    }
+    
+    public function get_task()
+    {
+        $q = $this->em->createQueryBuilder()
+            ->select('t')
+            ->from(\Entity\GanttTasks::class,'t')
+            ->getQuery()->getArrayResult();
+        return $q;
+
+    }
+
+    public function get_links()
+    {
+        $q = $this->em->createQueryBuilder()
+            ->select('l')
+            ->from(\Entity\GanttLinks::class,'l')
+            ->getQuery()->getArrayResult();
+        return $q;
+    }
+    public function get_task_as_json()
+    {
+        $data = $this->get_task();
+        $links = $this->get_links();
+//        var_dump($data);
+        for($i=0;$i<count($data);$i++)
+        {
+             $starDate =  $data[$i]['startDate']->format('d-m-Y H:i');
+             $endDate =  $data[$i]['endDate']->format('d-m-Y H:i');
+             unset($data[$i]['startdate']);
+             unset($data[$i]['end_ate']);
+             $data[$i]['start_date'] = $starDate;
+             $data[$i]['end_date']= $endDate;
+        }
+     //   var_dump($data);
+        $dataToEncode = array('data'=>$data,'links'=>$links);
+        return json_encode($dataToEncode);
     }
 }

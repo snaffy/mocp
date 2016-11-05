@@ -29,22 +29,21 @@ class User_projects extends My_controller
     {
         $this->load->helper('url');
         $this->load->helper('form');
-        $this->load->view('head.php');
-        $this->load->view('ProjectsView/navigation.php');
-        $this->load->view('ProjectsView/ganttChart.php');
-        $this->load->view('footer.php');
-        var_dump($this->input->post());
+
         $newTask = $this->input->post('addTaskInput');
         $newTaskDecode = json_decode($newTask,false,512,JSON_BIGINT_AS_STRING);
+        var_dump($this->input->post());
         $task = $newTaskDecode->{'data'};
         $links = $newTaskDecode->{'links'};
-        var_dump($task);
-        var_dump($links);
         $this->load->model('User_project');
         $this->User_project->add_task($task,$links);
-
-//        $this->load->helper('url');
-//        $this->load->view('ProjectsView/gantttest.php');
+        $data['task_data'] = $this->User_project->get_task_as_json();
+        
+        $this->load->view('head.php');
+        $this->load->view('ProjectsView/navigation.php');
+        $this->load->view('ProjectsView/ganttChart.php',$data);
+        $this->load->view('footer.php');
+      //  var_dump($data);
     }
     
     
