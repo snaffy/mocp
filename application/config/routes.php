@@ -66,3 +66,4 @@ $route['test'] ='User_home/test';
 //Projects
 $route['project'] ='User_projects/project_overview';
 $route['project/task'] = 'User_projects/task';
+$route['project/data'] = 'data_controller';

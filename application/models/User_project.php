@@ -167,13 +167,13 @@ class User_project  extends CI_Model
         {
              $starDate =  $data[$i]['startDate']->format('d-m-Y H:i');
              $endDate =  $data[$i]['endDate']->format('d-m-Y H:i');
-             unset($data[$i]['startdate']);
-             unset($data[$i]['end_ate']);
+             unset($data[$i]['startDate']);
+             unset($data[$i]['endDate']);
              $data[$i]['start_date'] = $starDate;
              $data[$i]['end_date']= $endDate;
         }
-     //   var_dump($data);
         $dataToEncode = array('data'=>$data,'links'=>$links);
-        return json_encode($dataToEncode);
+      //  var_dump($dataToEncode);
+        return $dataToEncode;
     }
 }

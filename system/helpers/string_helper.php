@@ -127,7 +127,7 @@ if ( ! function_exists('quotes_to_entities'))
 	/**
 	 * Quotes to Entities
 	 *
-	 * Converts single and double quotes to entities
+	 * Converts single and double quotes to Entity
 	 *
 	 * @param	string
 	 * @return	string

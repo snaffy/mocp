@@ -20,15 +20,18 @@
     gantt.config.scale_unit = "day";
     gantt.config.date_scale = "%j";
     gantt.config.step = 2;
-
     gantt.config.scale_height = 30;
     gantt.init("gantt_here");
-    var task_data =  <?php echo $task_data;?>;
+    gantt.load("http://localhost:449/mocp/project/data");
+//    var tmp ={"data":[{"id":"1","text":"New task","duration":1,"progress":0.54723926380368,"sortorder":null,"parent":0,"start_date":"03-11-2016 00:00","end_date":"04-11-2016 00:00"},{"id":"2","text":"New task","duration":1,"progress":null,"sortorder":null,"parent":0,"start_date":"04-11-2016 00:00","end_date":"05-11-2016 00:00"}],"links":[]}
+//    gantt.parse(tmp);
 
-    gantt.parse(task_data);
-
+    var dp = new gantt.dataProcessor("http://localhost:449/mocp/project/data");
+    dp.init(gantt);
+    dp.setTransactionMode("REST");
     function getGanttData() {
         var json = gantt.serialize();
+        gantt.updateLink()
         var jsonP = JSON.stringify(json);
         document.getElementById('addTaskInput').value = jsonP;
         document.getElementById("formAddTask").submit();

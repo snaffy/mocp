@@ -1552,7 +1552,7 @@ class CI_Form_validation {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Convert PHP tags to entities
+	 * Convert PHP tags to Entity
 	 *
 	 * @param	string
 	 * @return	string

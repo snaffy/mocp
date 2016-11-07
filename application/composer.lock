@@ -4,9 +4,41 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "43f84ec888367c7663c9701b9b70f878",
-    "content-hash": "3ba5865ee439cf319452b0df1a1dfb7c",
+    "hash": "21b604b8e754f4e6398fadaee4b996aa",
+    "content-hash": "47489c0b03a71af7679ead548b67ce09",
     "packages": [
+        {
+            "name": "codeigniter/framework",
+            "version": "3.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bcit-ci/CodeIgniter.git",
+                "reference": "2afa6b6b58a73fa26a7a93045ccb1fc8a087a141"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bcit-ci/CodeIgniter/zipball/2afa6b6b58a73fa26a7a93045ccb1fc8a087a141",
+                "reference": "2afa6b6b58a73fa26a7a93045ccb1fc8a087a141",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "1.1.*"
+            },
+            "suggest": {
+                "paragonie/random_compat": "Provides better randomness in PHP 5.x"
+            },
+            "type": "project",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "The CodeIgniter framework",
+            "homepage": "https://codeigniter.com",
+            "time": "2016-10-28 15:13:14"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.3.0",
@@ -605,6 +637,48 @@
                 "orm"
             ],
             "time": "2016-09-10 18:51:13"
+        },
+        {
+            "name": "hanischit/codeigniter-restserver",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Hanisch-IT/codeigniter-restserver.git",
+                "reference": "7b7cb3d92017aa57e02d122093f7091d9b5fa500"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Hanisch-IT/codeigniter-restserver/zipball/7b7cb3d92017aa57e02d122093f7091d9b5fa500",
+                "reference": "7b7cb3d92017aa57e02d122093f7091d9b5fa500",
+                "shasum": ""
+            },
+            "require": {
+                "codeigniter/framework": ">=3.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "libraries/Format.php",
+                    "libraries/REST_Controller.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabian Hanisch",
+                    "email": "kontakt@hanisch-it.de"
+                }
+            ],
+            "description": "A fully RESTful server implementation for CodeIgniter using one library, one config file and one controller.",
+            "keywords": [
+                "codeigniter",
+                "restserver"
+            ],
+            "time": "2016-02-06 07:15:14"
         },
         {
             "name": "psr/log",
