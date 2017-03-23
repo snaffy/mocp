@@ -58,13 +58,27 @@ $route['translate_uri_dashes'] = true;
 $route['login']='Log_reg/login';
 $route['register'] ='Log_reg/register';
 
-//Home
+//home
 $route['home'] = 'User_home/home';
+$route['activeinv'] = 'User_home/activeinv';
 $route['profile'] ='User_home/profile';
 $route['logout'] ='User_home/logout';
 $route['test'] ='User_home/test';
-//Projects
+//projects
 $route['project'] ='User_projects/project_overview';
 $route['project/event'] = 'User_projects/task';
-$route['project/data']['get'] = 'data_controller';
-$route['project/task']['post'] ='data_controller';
+$route['project/event/resources'] ='User_projects/connect_to_gatt';
+$route['project/test'] = 'User_projects/test_gantt';
+//Budget
+$route['project/budget'] = 'User_projects/budget';
+//Doceumnts
+$route['project/documents'] = 'User_documents/menage_file';
+$route['project/documents/transfer'] = 'User_documents/transfer_server';
+$route['project/documents/transfer/upload_handler'] = 'User_documents/upload_handler';
+$route['project/documents/elfinderconnector'] = 'User_documents/get_elfinder_connector';
+//Human Resources
+$route['project/hr']='User_projects/manage_hr';
+//Resources
+$route['resources/projects_data'] = 'Resources/projects_data';
+$route['resources/invitations_data'] = 'Resources/invitations_data';
+$route['resources/user_in_project_data'] ='Resources/user_in_project_data';

@@ -6,62 +6,87 @@
  * Date: 27.10.2016
  * Time: 03:09
  */
-class User_home extends My_controller
+class User_home extends My_Controller
 {
-
-    /**
-     * User_home constructor.
-     */
-    private $userID;
-
     public function __construct()
     {
         parent:: __construct();
-        // $this->output->enable_profiler(TRUE);
-        $this->userID = $this->session->get_userdata()['userID'];
+        if($this->userID == null)
+        {
+            $this->load->helper('url');
+            redirect('/login');
+        }
+        $this->load->helper('url');
+        $this->load->helper('form');
     }
 
     public function home()
     {
-        $this->load->model('User_project');
-        var_dump($this->userID);
-        $some_data=  json_encode($this->User_project->get_user_projecT($this->userID));
-        $data = array (
-            'userProjectData' => $some_data
-        );
-        var_dump($data);
-        $this->load->helper('url');
-        $this->load->helper('form');
-        $this->load->view('HomeView/userHeader.php');
-        $this->load->view('HomeView/userCreateProject.php',$data);
-        $this->load->view('HomeView/userFooter.php');
-        
-        if($this->input->post('createEditSubmit') == 'Utwórz')
-        {
-            $ucID = $this->em->find(\Entity\User::class,$this->userID);
-            $rcID = $this->em->find(\Entity\UserRole::class,1);
-             $this->User_project->create_project($ucID,$rcID);
+        $this->load->model('Project_model');
+        if ($this->input->post('createEditSubmit') == 'Utwórz') {
+            $userID = $this->em->find(\Entity\User::class, $this->userID);
+            $roleID = $this->em->find(\Entity\UserRole::class, 1);
+            $projectCost = floatval($this->input->post('projectCost')) ;
+            $pName = $this->input->post('projectName');
+            $pDescrition = $this->input->post('projectDescription');
+            $this->Project_model->create_project($userID, $roleID,$pName,$pDescrition,$projectCost);
+            redirect('home', 'refresh');
+        } elseif ($this->input->post('createEditSubmit') == 'Edytuj') {
+            $pName = $this->input->post('projectName');
+            $pDescrition = $this->input->post('projectDescription');
+            $projecIDToEdit = $this->input->post('projectID');
+            $projectCost = floatval($this->input->post('projectCost')) ;
+            $result = $this->Project_model->check_possibility_to_edit_project($this->userID, $projecIDToEdit);
+            if ($result) {
+                $this->Project_model->edit_project($pName, $pDescrition,$projectCost, $projecIDToEdit);
+                redirect('home', 'refresh');
+            }else {$data['status'] = 'Brak uprawnień dla zadanej operacji';}
+        } elseif ($this->input->post('selectedProjectIDToRem') != null) {
+            $project = $this->input->post('selectedProjectIDToRem');
+//            var_dump($this->userID);
+            $result = $this->Project_model->check_possibility_to_edit_project($this->userID, $project);
+            if($result)
+            {
+                $this->Project_model->remove_project($project);
+                redirect('home', 'refresh');
+            }else {
+               $data['status'] = 'Brak uprawnień dla zadanej operacji';
+                $this->Project_model->leave_project($this->userID, $project);
+//                redirect('home', 'refresh');
+            }
 
-          //  $this->User_project->add_user_to_project($ucID,$projectID,$rcID);
-            redirect('home','refresh');
-        }elseif ($this->input->post('createEditSubmit') == 'Edytuj')
-        {
-            $this->User_project->edit_project();
-            redirect('home','refresh');
-        }elseif ($this->input->post('selectedProjectID') != null)
-        {
-//            $this->User_project->remove_project();
-//            redirect('home','refresh');
         }
+        $this->load->view('header/project_h.php');
+        $this->load->view('home/create_project.php',$data);
+        if ($this->invitations == true)
+        {
+            $this->load->view('invitationNotify.php');
+        }
+        $this->load->view('footer.php');
+    }
+
+    public function activeinv()
+    {
+        $this->load->model('Project_model');
+        $getInvDec = $this->input->post('operation');
+        if ($getInvDec == "accept") {
+            $idUserInProject = $this->input->post('idUserInProject');
+            $idInvitation = $this->input->post('idInvitation');
+            $this->Project_model->add_user_to_project_by_invitation($idInvitation, $idUserInProject);
+        } elseif ($getInvDec == "reject")
+        {
+            $idInvitation = $this->input->post('idInvitation');
+            $this->Project_model->reject_invitation_to_project($idInvitation);
+        }
+        $this->load->view('header/project_h.php');
+        $this->load->view('home/active_inv.php');
+        $this->load->view('footer.php');
     }
 
     public function profile()
     {
-        $this->load->helper('url');
-        $this->load->helper('form');
         $this->load->library('form_validation');
         $user = $this->em->find(\Entity\User::class, $this->userID);
-            var_dump($this->input->post());
         if ($this->input->post('submitBasicData') != null) {
             if ($this->form_validation->run('basicField') == true) {
                 echo "Zapis basic field";
@@ -81,11 +106,9 @@ class User_home extends My_controller
                     redirect('profile');
                 }
             }
-        }elseif(($this->input->post('submitChangeLogin') != null))
-        {
-            $this->form_validation->set_rules('login','Login','required|min_length[4]');
-            if ($this->form_validation->run('login') == true)
-            {
+        } elseif (($this->input->post('submitChangeLogin') != null)) {
+            $this->form_validation->set_rules('login', 'Login', 'required|min_length[4]');
+            if ($this->form_validation->run('login') == true) {
                 $this->load->model('User_model');
                 $this->User_model->update_user_login($this->userID);
                 redirect('profile');
@@ -93,24 +116,17 @@ class User_home extends My_controller
         }
 
         $data['basicUserData'] = array('name' => $user->getName(), 'surname' => $user->getSurname(),
-            'email' => $user->getEmail(), 'phoneNumber' => $user->getPhoneNumber(),'login' =>$user->getLogin());
-        $this->load->view('HomeView/userHeader.php');
-        $this->load->view('HomeView/userProfileContentView.php', $data);
-        $this->load->view('HomeView/userFooter.php');
+            'email' => $user->getEmail(), 'phoneNumber' => $user->getPhoneNumber(), 'login' => $user->getLogin());
+        $this->load->view('header/project_h.php');
+        $this->load->view('home/profile_content.php', $data);
+        $this->load->view('footer.php');
     }
-    
-    public function test()
-    {
-        $this->load->helper('url');
-        $this->load->view('HomeView/userHeader.php');
-        $this->load->view('HomeView/test.php');
-        $this->load->view('HomeView/userFooter.php');
-    }
+
     public function has_match($password, $hasshedPasswrd)
     {
         return password_verify($password, $hasshedPasswrd);
     }
-    
+
     public function logout()
     {
         $this->load->helper('url');

@@ -15,23 +15,23 @@ class GanttLinks
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="source", type="bigint", nullable=false)
+     * @ORM\Column(name="source", type="integer", nullable=false)
      */
     private $source;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="target", type="bigint", nullable=false)
+     * @ORM\Column(name="target", type="integer", nullable=false)
      */
     private $target;
 
@@ -42,70 +42,6 @@ class GanttLinks
      */
     private $type;
 
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getSource()
-    {
-        return $this->source;
-    }
-
-    /**
-     * @param int $source
-     */
-    public function setSource($source)
-    {
-        $this->source = $source;
-    }
-
-    /**
-     * @return int
-     */
-    public function getTarget()
-    {
-        return $this->target;
-    }
-
-    /**
-     * @param int $target
-     */
-    public function setTarget($target)
-    {
-        $this->target = $target;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param string $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    
 }
 

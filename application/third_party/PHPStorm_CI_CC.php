@@ -77,8 +77,11 @@
 	 ***************** YOUR LIBRARIES *****************
 	 * @property Layout              $layout               Layout Class
 	 ***************** YOUR MODELS *****************
-	 * @property User_model          $User_model           ,$user
-	 * @property User_project		 $User_project		   ,$project		
+	 * @property user_model          $user_model           ,$user
+	 * @property User_model          $User_model
+	 * @property Project_model       $Project_model
+	 * @property Gantt_connector     $Gantt_connector
+     * @property Vault               $Vault
 	 */
 	class CI_Controller {
 		public function __construct() {
@@ -136,7 +139,8 @@
 	 * @property CI_Javascript       $javascript           Javascript Class
 	 ***************** YOUR LIBRARIES *****************
 	 * @property Layout              $layout               Layout Class
-	 */
+     *
+     */
 	class CI_Model {
 		public function __construct() {
 		} // This default returns construct as set

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * GanttTasks
  *
- * @ORM\Table(name="gantt_tasks")
+ * @ORM\Table(name="gantt_tasks", indexes={@ORM\Index(name="fk_gantt_tasks_project1_idx", columns={"project_id_project"})})
  * @ORM\Entity
  */
 class GanttTasks
@@ -15,9 +15,9 @@ class GanttTasks
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -34,12 +34,6 @@ class GanttTasks
      * @ORM\Column(name="start_date", type="datetime", nullable=false)
      */
     private $startDate;
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="end_date", type="datetime", nullable=true)
-     */
-    private $endDate;
 
     /**
      * @var integer
@@ -51,23 +45,61 @@ class GanttTasks
     /**
      * @var float
      *
-     * @ORM\Column(name="progress", type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(name="progress", type="float", precision=10, scale=0, nullable=false)
      */
     private $progress;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="sortorder", type="integer", nullable=true)
+     * @ORM\Column(name="sortorder", type="integer", nullable=false)
      */
     private $sortorder;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="parent", type="integer", nullable=true)
+     * @ORM\Column(name="parent", type="integer", nullable=false)
      */
     private $parent;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=45, nullable=true)
+     */
+    private $type;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="priority", type="integer", nullable=true)
+     */
+    private $priority;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="end_date", type="datetime", nullable=true)
+     */
+    private $endDate;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="budget", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $budget;
+
+    /**
+     * @var \Project
+     *
+     * @ORM\ManyToOne(targetEntity="Project")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="project_id_project", referencedColumnName="id_project")
+     * })
+     */
+    private $idProject;
 
     /**
      * @return int
@@ -182,6 +214,38 @@ class GanttTasks
     }
 
     /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPriority()
+    {
+        return $this->priority;
+    }
+
+    /**
+     * @param int $priority
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+    }
+
+    /**
      * @return \DateTime
      */
     public function getEndDate()
@@ -197,6 +261,38 @@ class GanttTasks
         $this->endDate = $endDate;
     }
 
-    
+    /**
+     * @return float
+     */
+    public function getBudget()
+    {
+        return $this->budget;
+    }
+
+    /**
+     * @param float $budget
+     */
+    public function setBudget($budget)
+    {
+        $this->budget = $budget;
+    }
+
+    /**
+     * @return \Project
+     */
+    public function getIdProject()
+    {
+        return $this->idProject;
+    }
+
+    /**
+     * @param \Project $idProject
+     */
+    public function setIdProject($idProject)
+    {
+        $this->idProject = $idProject;
+    }
+
+
 }
 

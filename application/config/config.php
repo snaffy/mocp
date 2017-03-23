@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:8080/mocp/';
+$config['base_url'] = 'http://azygmunt.hekko24.pl/mct/public/';
 
 /*
 |--------------------------------------------------------------------------
@@ -136,7 +136,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = TRUE;
+$config['composer_autoload'] = realpath(APPPATH . '../vendor/autoload.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -511,3 +511,12 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+define('ASSET_PATH','http://azygmunt.hekko24.pl/mct/assets/');
+define('BOWER_PATH','http://azygmunt.hekko24.pl/mct/bower_components/');
+define('VENDOR_PATH','http://azygmunt.hekko24.pl/mct//vendor/');
+define('PUBLIC_PATH','http://azygmunt.hekko24.pl/mct/public');
+
+define('SERVERUP_PATH','http://azygmunt.hekko24.pl/mct/server/');
+define('UPDIR', realpath($_SERVER['DOCUMENT_ROOT'].'/mct/uploaded'));
+define('RESOURCES','http://azygmunt.hekko24.pl/mct/public/resources/');

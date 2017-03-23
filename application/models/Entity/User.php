@@ -336,6 +336,6 @@ class User
         $this->expiresAt = $expiresAt;
     }
 
-    
+
 }
 

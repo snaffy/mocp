@@ -19,16 +19,19 @@ class User_model extends CI_Model
         parent::__construct();
     }
 
-    public function register_user()
+    public function register_user($login,$pass)
     {
-        $login = $this->input->post('login');
-        $pass = $this->input->post('password');
-        $usr = new Entity\User;
-        $hashed_password = password_hash($pass, PASSWORD_BCRYPT);
-        $usr->setPassword($hashed_password);
-        $usr->setLogin($login);
-        $this->em->persist($usr);
-        $this->em->flush();
+        $usrExist = $this->em->getRepository(\Entity\User::class)->findBy(array('login' => $login));
+        if($usrExist == null)
+        {
+            $usr = new Entity\User;
+            $hashed_password = password_hash($pass, PASSWORD_BCRYPT);
+            $usr->setPassword($hashed_password);
+            $usr->setLogin($login);
+            $this->em->persist($usr);
+            $this->em->flush();
+            return true;
+        }return false;
     }
 
     public function update_user_basic_field($idUser)

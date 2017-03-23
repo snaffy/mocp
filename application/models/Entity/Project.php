@@ -1,6 +1,9 @@
 <?php
+
 namespace Entity;
+
 use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Project
  *
@@ -33,11 +36,11 @@ class Project
     private $description;
 
     /**
-     * @var string
+     * @var float
      *
-     * @ORM\Column(name="adress", type="string", length=255, nullable=true)
+     * @ORM\Column(name="budget", type="float", precision=10, scale=0, nullable=true)
      */
-    private $adress;
+    private $budget;
 
     /**
      * @return int
@@ -88,21 +91,21 @@ class Project
     }
 
     /**
-     * @return string
+     * @return float
      */
-    public function getAdress()
+    public function getBudget()
     {
-        return $this->adress;
+        return $this->budget;
     }
 
     /**
-     * @param string $adress
+     * @param float $budget
      */
-    public function setAdress($adress)
+    public function setBudget($budget)
     {
-        $this->adress = $adress;
+        $this->budget = $budget;
     }
-    
+
 
 }
 

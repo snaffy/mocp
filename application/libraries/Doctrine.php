@@ -21,8 +21,10 @@ class Doctrine {
     public function __construct()
     {
         // Load the database configuration from CodeIgniter
-        var_dump(realpath(APPPATH . '../vendor/autoload.php'));
-        require APPPATH.'config/database.php';
+        // cli-config
+        require APPPATH.'/config/database.php';
+        //app
+//        require APPPATH.'config/database.php';
 
         $connection_options = array(
             'driver'		=> 'pdo_mysql',
