@@ -8,6 +8,7 @@ nbproject
 .settings
 testEntity/
 bower_components/
+application/
 cache.properties
 build
 vendor/
