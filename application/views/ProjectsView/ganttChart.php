@@ -22,13 +22,12 @@
     gantt.config.step = 2;
     gantt.config.scale_height = 30;
     gantt.init("gantt_here");
-    gantt.load("http://localhost:449/mocp/project/data");
-//    var tmp ={"data":[{"id":"1","text":"New task","duration":1,"progress":0.54723926380368,"sortorder":null,"parent":0,"start_date":"03-11-2016 00:00","end_date":"04-11-2016 00:00"},{"id":"2","text":"New task","duration":1,"progress":null,"sortorder":null,"parent":0,"start_date":"04-11-2016 00:00","end_date":"05-11-2016 00:00"}],"links":[]}
-//    gantt.parse(tmp);
 
-    var dp = new gantt.dataProcessor("http://localhost:449/mocp/project/data");
+    var dp = new gantt.dataProcessor("http://localhost:8080/mocp/project");
     dp.init(gantt);
     dp.setTransactionMode("REST");
+    gantt.load("data");
+
     function getGanttData() {
         var json = gantt.serialize();
         gantt.updateLink()

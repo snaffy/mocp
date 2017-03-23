@@ -21,7 +21,8 @@ class Doctrine {
     public function __construct()
     {
         // Load the database configuration from CodeIgniter
-        require APPPATH . 'config/database.php';
+        var_dump(realpath(APPPATH . '../vendor/autoload.php'));
+        require APPPATH.'config/database.php';
 
         $connection_options = array(
             'driver'		=> 'pdo_mysql',
@@ -46,7 +47,7 @@ class Doctrine {
         // Set up caches
         if(ENVIRONMENT == 'development')  // set environment in index.php
             // set up simple array caching for development mode
-            $cache = new \Doctrine\Common\Cache\ArrayCache;
+            $cache = new Doctrine\Common\Cache\ArrayCache();
         else
             // set up caching with APC for production mode
             $cache = new \Doctrine\Common\Cache\ApcCache;

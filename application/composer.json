@@ -1,6 +1,7 @@
 {
     "require": {
+        "php": ">=5.2.4",
         "doctrine/orm": "*",
-        "hanischit/codeigniter-restserver": " 1.0"
+        "guzzlehttp/guzzle": "~6.0"
     }
 }

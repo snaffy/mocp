@@ -15,6 +15,21 @@ class User_projects extends My_controller
         // $this->output->enable_profiler(TRUE);
         $this->userID = $this->session->get_userdata()['userID'];
     }
+
+    public function guzzler_get($url, $uri)
+    {
+        require APPPATH.'vendor/autoload.php';
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $response = $client->get($uri);
+        // print_r($response); // print out response
+
+        // print out headers:
+        // foreach ($response->getHeaders() as $name => $values) {
+        //    echo $name . ': ' . implode(', ', $values) . "\r\n";
+        // }
+        return $response;
+    }
+
     public function project_overview()
     {
         echo "everwiew"; 
@@ -40,22 +55,24 @@ class User_projects extends My_controller
 
         $newTask = $this->input->post('addTaskInput');
         $newTaskDecode = json_decode($newTask,false,512,JSON_BIGINT_AS_STRING);
-        var_dump($this->input->post());
+//        var_dump($this->input->post());
         $task = $newTaskDecode->{'data'};
         $links = $newTaskDecode->{'links'};
-        var_dump($task,$links);
+//        var_dump($task,$links);
         $this->load->model('User_project');
 //        $this->User_project->add_task($task,$links);
         $data['task_data'] = $this->User_project->get_task_as_json();
         $data['task_data'] = json_encode($data['task_data']);
-
-       var_dump( $data['task_data']) ;
+//       var_dump( $data['task_data']) ;
         $this->load->view('head.php');
         $this->load->view('ProjectsView/navigation.php');
       //  $this->load->view('data.php',$data);
         $this->load->view('ProjectsView/ganttChart.php',$data);
         $this->load->view('footer.php');
-      //  var_dump($data);
+
+
+        $client = $this->guzzler_get('http://httpbin.org', '/html');
+
     }
     
     

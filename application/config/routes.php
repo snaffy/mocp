@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'Log_reg/login';
 $route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+$route['translate_uri_dashes'] = true;
 
 
 // LOGIN REGISTER
@@ -65,5 +65,6 @@ $route['logout'] ='User_home/logout';
 $route['test'] ='User_home/test';
 //Projects
 $route['project'] ='User_projects/project_overview';
-$route['project/task'] = 'User_projects/task';
-$route['project/data'] = 'data_controller';
+$route['project/event'] = 'User_projects/task';
+$route['project/data']['get'] = 'data_controller';
+$route['project/task']['post'] ='data_controller';

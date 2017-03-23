@@ -21,7 +21,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-left">
                 <li><a href="<?php echo base_url(); ?>project">Przegląd</a></li>
-                <li><a href="<?php echo base_url(); ?>project/task"">Zadania</a></li>
+                <li><a href="<?php echo base_url(); ?>project/event"">Zadania</a></li>
                 <li><a href="#">Dokumenty</a></li>
                 <li><a href="#">Rysunki</a></li>
                 <li><a href="#">Budżet</a></li>

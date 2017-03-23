@@ -96,7 +96,7 @@ class User_project  extends CI_Model
             ->from(\Entity\UserHasProject::class,'p')
             ->join('p.project','u')
             ->where('p.user=:id')
-            ->setParameter('id',5)
+            ->setParameter('id',$idUser)
             ->getQuery()->getArrayResult();
 
        return $q ;
@@ -157,6 +157,11 @@ class User_project  extends CI_Model
             ->from(\Entity\GanttLinks::class,'l')
             ->getQuery()->getArrayResult();
         return $q;
+    }
+    
+    public function get_to_test($tmp)
+    {
+        var_dump($tmp);
     }
     public function get_task_as_json()
     {

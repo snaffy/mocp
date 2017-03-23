@@ -77,10 +77,8 @@
 	 ***************** YOUR LIBRARIES *****************
 	 * @property Layout              $layout               Layout Class
 	 ***************** YOUR MODELS *****************
-	 * @property user_model          $user_model           ,$user
-	 * @property data_model          $data_model
-	 * @property products_model      $products_model
-	 * @property movie_model         $movie_model
+	 * @property User_model          $User_model           ,$user
+	 * @property User_project		 $User_project		   ,$project		
 	 */
 	class CI_Controller {
 		public function __construct() {
