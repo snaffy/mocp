@@ -5,7 +5,7 @@ class Log_reg extends CI_Controller {
 
     public function login()
 	{
-		$this->load->helper('url');
+	$this->load->helper('url');
         $this->load->helper('form');
         $this->load->view('header/log_reg_h');
         $this->load->view('loginRegister/login.php');
@@ -27,8 +27,8 @@ class Log_reg extends CI_Controller {
         }
 	}
 
-	public function register()
-    {
+	public function register(){
+		
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->library('form_validation');
@@ -48,12 +48,9 @@ class Log_reg extends CI_Controller {
                redirect('/home');
            }else
            {
-
                $this->session->set_flashdata('message', 'Użytkownik o podanym loginie już istnieje.');
-//               var_dump($this->session->flashdata('message'));
                redirect(current_url());
            }
-//           redirect('/register','refresh');
         }
 	}
     
