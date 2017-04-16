@@ -26,17 +26,15 @@ class User_documents extends My_Controller
         $this->load->view('navigation/main_nav.php');
         $this->load->view('documents/elfinder.php');
         $this->load->view('footer.php');
-//        var_dump( $this->projectID);
     }
 
     private function ftp_mksubdirs($ftpcon,$ftpbasedir,$ftpath){
-        @ftp_chdir($ftpcon, $ftpbasedir); // /var/www/uploads
-        $parts = explode('/',$ftpath); // 2013/06/11/username
+        @ftp_chdir($ftpcon, $ftpbasedir); 
+        $parts = explode('/',$ftpath); 
         foreach($parts as $part){
             if(!@ftp_chdir($ftpcon, $part)){
                 ftp_mkdir($ftpcon, $part);
                 ftp_chdir($ftpcon, $part);
-                //ftp_chmod($ftpcon, 0777, $part);
             }
         }
     }
@@ -70,7 +68,6 @@ class User_documents extends My_Controller
                     'alias'      => 'Katalog',
                     'defaults'   => array('read' => true, 'write' => true),
                     'tmpPath'=>'tmp',
-                    // more elFinder options here
                 )
             )
         );
